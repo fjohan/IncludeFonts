@@ -38,8 +38,8 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         this.jta = jta;
         Font font = null;
 
-        InputStream fontStream = getClass().getResourceAsStream("fonts/arial.ttf");
-        //InputStream fontStream = getClass().getResourceAsStream("fonts/HARNGTON.TTF");
+        //InputStream fontStream = getClass().getResourceAsStream("fonts/arial.ttf");
+        InputStream fontStream = getClass().getResourceAsStream("fonts/HARNGTON.TTF");
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, fontStream);
         } catch (FontFormatException ex) {
@@ -88,9 +88,6 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
                 Rectangle2D bounds2 = metrics2.getStringBounds(str, null);
                 toMessage("Bounds2: " + str + " " + bounds2.toString()+"\n");
                 
-                char ch = 'm';
-                toMessage("M: "+metrics2.charWidth(ch));
-
                 //System.out.println("Bounds: " + str + " " + bounds.toString());
 
                 //super.replace(fb, offset, length, str, attr);
