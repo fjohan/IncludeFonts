@@ -10,10 +10,10 @@ import java.awt.FontMetrics;
 import java.awt.GraphicsEnvironment;
 import java.awt.Shape;
 import java.awt.font.FontRenderContext;
-import java.awt.font.GlyphVector;
 import java.awt.font.TextAttribute;
 import java.awt.font.TextLayout;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.AttributedString;
@@ -66,7 +66,7 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
 
         GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font1);
         //GlyphVector gv = font1.createGlyphVector(fontRenderContext, "m");
-        
+
 
         StyleContext context = new StyleContext();
         StyledDocument document = jTextPane1.getStyledDocument();
@@ -84,8 +84,8 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         FontRenderContext fontRenderContext = new FontRenderContext(null, false, false);
         TextLayout layout = new TextLayout(attributedString.getIterator(), fontRenderContext);
         Shape shape = layout.getOutline(null);
-        toMessage("m " + shape.getBounds().toString()+"\n");
-        
+        toMessage("m " + shape.getBounds().toString() + "\n");
+
         metrics1 = new FontMetrics(font1) {
         };
         metrics2 = new FontMetrics(font2) {
@@ -106,16 +106,20 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String str, AttributeSet attr) throws BadLocationException {
                 fb.replace(offset, length, str, attr);
 
-                
-        AttributedString attributedString = new AttributedString(str);
-        attributedString.addAttribute(TextAttribute.FONT, font2, 0, str.length());
-        FontRenderContext fontRenderContext = new FontRenderContext(null, false, false);
-        TextLayout layout = new TextLayout(attributedString.getIterator(), fontRenderContext);
-        Shape shape = layout.getOutline(null);
-        toMessage(str + " " + shape.getBounds().toString()+"\n");
 
-                
-                
+                AttributedString attributedString = new AttributedString(str);
+                attributedString.addAttribute(TextAttribute.FONT, font2, 0, str.length());
+                FontRenderContext fontRenderContext = new FontRenderContext(null, false, false);
+                TextLayout layout = new TextLayout(attributedString.getIterator(), fontRenderContext);
+                Shape shape = layout.getOutline(null);
+                toMessage("Shape: " + str + " " + shape.getBounds().toString() + "\n");
+
+                BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+                FontMetrics fm = img.getGraphics().getFontMetrics(font2);
+                int width = fm.stringWidth(str);
+                toMessage("Image: " + str + " " + width + "\n");
+
+
                 Rectangle2D bounds1 = metrics1.getStringBounds(str, null);
                 toMessage("Bounds1: " + str + " " + bounds1.toString() + "\n");
                 Rectangle2D bounds2 = metrics2.getStringBounds(str, null);
