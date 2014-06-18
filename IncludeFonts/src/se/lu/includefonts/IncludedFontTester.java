@@ -7,9 +7,15 @@ package se.lu.includefonts;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.FontMetrics;
+import java.awt.Shape;
+import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
+import java.awt.font.TextAttribute;
+import java.awt.font.TextLayout;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.AttributedString;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTextArea;
@@ -40,7 +46,7 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         this.jta = jta;
         font1 = null;
 
-        InputStream fontStream = getClass().getResourceAsStream("fonts/Pilgiche.ttf");
+        InputStream fontStream = getClass().getResourceAsStream("fonts/arial.ttf");
         //InputStream fontStream = getClass().getResourceAsStream("fonts/HARNGTON.TTF");
         try {
             font1 = Font.createFont(Font.TRUETYPE_FONT, fontStream);
@@ -49,12 +55,22 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         } catch (IOException ex) {
             Logger.getLogger(IncludedFontTester.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         try {
             font1 = font1.deriveFont(Font.PLAIN, 12);
             fontStream.close();
         } catch (IOException ex) {
             Logger.getLogger(IncludedFontTester.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        AttributedString attributedString = new AttributedString("m");
+        attributedString.addAttribute(TextAttribute.FONT, font1, 0, "m".length());
+        FontRenderContext fontRenderContext = new FontRenderContext(null, false, false);
+        TextLayout layout = new TextLayout(attributedString.getIterator(), fontRenderContext);
+        Shape shape = layout.getOutline(null);
+        toMessage("m " + shape.getBounds().toString());
+        //GlyphVector gv = font1.createGlyphVector(fontRenderContext, "m");
+        
 
         StyleContext context = new StyleContext();
         StyledDocument document = jTextPane1.getStyledDocument();
@@ -67,8 +83,10 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
 
         // get the font
         font2 = document.getFont(jTextPane1.getParagraphAttributes());
-        metrics1 = new FontMetrics(font1) {};
-        metrics2 = new FontMetrics(font2) {};
+        metrics1 = new FontMetrics(font1) {
+        };
+        metrics2 = new FontMetrics(font2) {
+        };
 
         DocumentFilter docF = new DocumentFilter() {
             @Override
@@ -86,16 +104,12 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
                 fb.replace(offset, length, str, attr);
 
                 Rectangle2D bounds1 = metrics1.getStringBounds(str, null);
-                toMessage("Bounds1: " + str + " " + bounds1.toString()+"\n");
+                toMessage("Bounds1: " + str + " " + bounds1.toString() + "\n");
                 Rectangle2D bounds2 = metrics2.getStringBounds(str, null);
-                toMessage("Bounds2: " + str + " " + bounds2.toString()+"\n");
-                toMessage("Font1: " + font1.getFamily() +"\n");
-                toMessage("Font1: " + font1.getFontName() +"\n");
-                toMessage("Font1: " + font1.getName() +"\n");
-                toMessage("Font1: " + font1.getPSName() +"\n");
+                toMessage("Bounds2: " + str + " " + bounds2.toString() + "\n");
+                //toMessage("Font1: " + font1.getFamily() + "\n");
+                //toMessage("Font2: " + font2.getFamily() + "\n");
 
-                toMessage("Font2: " + font2.getFamily() +"\n");
-                
                 //System.out.println("Bounds: " + str + " " + bounds.toString());
 
                 //super.replace(fb, offset, length, str, attr);
