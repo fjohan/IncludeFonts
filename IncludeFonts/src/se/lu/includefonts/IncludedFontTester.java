@@ -7,6 +7,7 @@ package se.lu.includefonts;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.FontMetrics;
+import java.awt.GraphicsEnvironment;
 import java.awt.Shape;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
@@ -63,12 +64,7 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
             Logger.getLogger(IncludedFontTester.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        AttributedString attributedString = new AttributedString("m");
-        attributedString.addAttribute(TextAttribute.FONT, font1, 0, "m".length());
-        FontRenderContext fontRenderContext = new FontRenderContext(null, false, false);
-        TextLayout layout = new TextLayout(attributedString.getIterator(), fontRenderContext);
-        Shape shape = layout.getOutline(null);
-        toMessage("m " + shape.getBounds().toString());
+        GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font1);
         //GlyphVector gv = font1.createGlyphVector(fontRenderContext, "m");
         
 
@@ -83,6 +79,13 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
 
         // get the font
         font2 = document.getFont(jTextPane1.getParagraphAttributes());
+        AttributedString attributedString = new AttributedString("m");
+        attributedString.addAttribute(TextAttribute.FONT, font2, 0, "m".length());
+        FontRenderContext fontRenderContext = new FontRenderContext(null, false, false);
+        TextLayout layout = new TextLayout(attributedString.getIterator(), fontRenderContext);
+        Shape shape = layout.getOutline(null);
+        toMessage("m " + shape.getBounds().toString()+"\n");
+        
         metrics1 = new FontMetrics(font1) {
         };
         metrics2 = new FontMetrics(font2) {
@@ -103,12 +106,22 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String str, AttributeSet attr) throws BadLocationException {
                 fb.replace(offset, length, str, attr);
 
+                
+        AttributedString attributedString = new AttributedString(str);
+        attributedString.addAttribute(TextAttribute.FONT, font2, 0, str.length());
+        FontRenderContext fontRenderContext = new FontRenderContext(null, false, false);
+        TextLayout layout = new TextLayout(attributedString.getIterator(), fontRenderContext);
+        Shape shape = layout.getOutline(null);
+        toMessage(str + " " + shape.getBounds().toString()+"\n");
+
+                
+                
                 Rectangle2D bounds1 = metrics1.getStringBounds(str, null);
                 toMessage("Bounds1: " + str + " " + bounds1.toString() + "\n");
                 Rectangle2D bounds2 = metrics2.getStringBounds(str, null);
                 toMessage("Bounds2: " + str + " " + bounds2.toString() + "\n");
                 //toMessage("Font1: " + font1.getFamily() + "\n");
-                //toMessage("Font2: " + font2.getFamily() + "\n");
+                toMessage("Font2: " + font2.getFamily() + "\n");
 
                 //System.out.println("Bounds: " + str + " " + bounds.toString());
 
