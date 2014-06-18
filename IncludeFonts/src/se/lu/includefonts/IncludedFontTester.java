@@ -28,6 +28,7 @@ import javax.swing.text.StyledDocument;
  */
 public class IncludedFontTester extends javax.swing.JInternalFrame {
 
+    Font font;
     FontMetrics metrics1;
     FontMetrics metrics2;
     JTextArea jta;
@@ -36,10 +37,10 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         initComponents();
 
         this.jta = jta;
-        Font font = null;
+        font = null;
 
-        //InputStream fontStream = getClass().getResourceAsStream("fonts/arial.ttf");
-        InputStream fontStream = getClass().getResourceAsStream("fonts/HARNGTON.TTF");
+        InputStream fontStream = getClass().getResourceAsStream("fonts/arial.ttf");
+        //InputStream fontStream = getClass().getResourceAsStream("fonts/HARNGTON.TTF");
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, fontStream);
         } catch (FontFormatException ex) {
@@ -48,7 +49,7 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
             Logger.getLogger(IncludedFontTester.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            //font = font.deriveFont(Font.PLAIN, 12);
+            font = font.deriveFont(Font.PLAIN, 48);
             fontStream.close();
         } catch (IOException ex) {
             Logger.getLogger(IncludedFontTester.class.getName()).log(Level.SEVERE, null, ex);
@@ -59,7 +60,7 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         Style style = context.getStyle(StyleContext.DEFAULT_STYLE);
         StyleConstants.setLineSpacing(style, 1.5f);
         StyleConstants.setFontFamily(style, font.getFamily());
-        //StyleConstants.setFontSize(style, 12);
+        StyleConstants.setFontSize(style, 12);
         int len = document.getLength();
         document.setParagraphAttributes(0, len, style, false);
 
@@ -87,6 +88,7 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
                 toMessage("Bounds1: " + str + " " + bounds1.toString()+"\n");
                 Rectangle2D bounds2 = metrics2.getStringBounds(str, null);
                 toMessage("Bounds2: " + str + " " + bounds2.toString()+"\n");
+                toMessage("Font: " + font.getFamily() +"\n");
                 
                 //System.out.println("Bounds: " + str + " " + bounds.toString());
 

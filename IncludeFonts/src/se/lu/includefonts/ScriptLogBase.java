@@ -4,6 +4,7 @@
  */
 package se.lu.includefonts;
 
+import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 
 /**
@@ -18,6 +19,7 @@ public class ScriptLogBase extends javax.swing.JFrame {
      */
     public ScriptLogBase() {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         
         openMessagePane();
         openIncludedFontTesterFrame();
@@ -143,11 +145,11 @@ public class ScriptLogBase extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(desktopPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+            .addComponent(desktopPane)
         );
 
         pack();
