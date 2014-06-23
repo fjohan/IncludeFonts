@@ -77,6 +77,19 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         int len = document.getLength();
         document.setParagraphAttributes(0, len, style, false);
 
+        for (int i = 9; i < 16; i++) {
+            StyleConstants.setFontSize(style, i);
+            len = document.getLength();
+            document.setParagraphAttributes(0, len, style, false);
+            font2 = document.getFont(jTextPane1.getParagraphAttributes());
+            metrics2 = new FontMetrics(font2) {
+            };
+            Rectangle2D bounds2 = metrics2.getStringBounds("m", null);
+            toMessage("Bounds2: " + "m" + " " + bounds2.toString() + "\n");
+        }
+
+
+
         // get the font
         font2 = document.getFont(jTextPane1.getParagraphAttributes());
         AttributedString attributedString = new AttributedString("m");
