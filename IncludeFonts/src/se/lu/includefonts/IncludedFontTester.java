@@ -80,9 +80,14 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         document.setParagraphAttributes(0, len, style12, false);
 
         final SimpleAttributeSet style13 = new SimpleAttributeSet();
-        //StyleConstants.setLineSpacing(style13, 1.5f);
+        StyleConstants.setLineSpacing(style13, 1.5f);
         StyleConstants.setFontFamily(style13, font1.getFamily());
         StyleConstants.setFontSize(style13, 13);
+
+        final SimpleAttributeSet style10 = new SimpleAttributeSet();
+        StyleConstants.setLineSpacing(style10, 1.5f);
+        StyleConstants.setFontFamily(style10, font1.getFamily());
+        StyleConstants.setFontSize(style10, 10);
 
 //        try {
 //            document.insertString(0, "Hello", style12);
@@ -146,10 +151,13 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
 
             @Override
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String str, AttributeSet attr) throws BadLocationException {
-
-               
-                fb.replace(offset, length, str, style13);
-                fb.replace(offset, length, str, style12);
+                if (str.startsWith("m") || str.startsWith("s")) {
+                    fb.replace(offset, length, str, style13);
+                } else if (str.startsWith("v")) {
+                    fb.replace(offset, length, str, style10);
+                } else {
+                    fb.replace(offset, length, str, style12);
+                }
 
 
 
