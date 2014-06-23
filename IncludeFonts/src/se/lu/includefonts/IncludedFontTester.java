@@ -24,6 +24,7 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
+import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
@@ -70,23 +71,38 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
 
         StyleContext context = new StyleContext();
         final StyledDocument document = jTextPane1.getStyledDocument();
-        final Style style = context.getStyle(StyleContext.DEFAULT_STYLE);
-        StyleConstants.setLineSpacing(style, 1.5f);
-        StyleConstants.setFontFamily(style, font1.getFamily());
-        StyleConstants.setFontSize(style, 12);
-        int len = document.getLength();
-        document.setParagraphAttributes(0, len, style, false);
 
-        for (int i = 9; i < 16; i++) {
-            StyleConstants.setFontSize(style, i);
-            len = document.getLength();
-            document.setParagraphAttributes(0, len, style, false);
-            font2 = document.getFont(jTextPane1.getParagraphAttributes());
-            metrics2 = new FontMetrics(font2) {
-            };
-            Rectangle2D bounds2 = metrics2.getStringBounds("m", null);
-            toMessage("Bounds2: " + "m" + " " + bounds2.toString() + "\n");
-        }
+        final SimpleAttributeSet style12 = new SimpleAttributeSet();
+        StyleConstants.setLineSpacing(style12, 1.5f);
+        StyleConstants.setFontFamily(style12, font1.getFamily());
+        StyleConstants.setFontSize(style12, 12);
+        int len = document.getLength();
+        document.setParagraphAttributes(0, len, style12, false);
+
+        final SimpleAttributeSet style13 = new SimpleAttributeSet();
+        //StyleConstants.setLineSpacing(style13, 1.5f);
+        StyleConstants.setFontFamily(style13, font1.getFamily());
+        StyleConstants.setFontSize(style13, 13);
+
+//        try {
+//            document.insertString(0, "Hello", style12);
+//            document.insertString(document.getLength(), "Hello", style13);
+//
+//            String s = "v";
+//            for (int i = 9; i < 16; i++) {
+//                StyleConstants.setFontSize(style, i);
+//                StyleConstants.setItalic(style, true);
+//                len = document.getLength();
+//                document.setParagraphAttributes(0, len, style, false);
+//                font2 = document.getFont(jTextPane1.getParagraphAttributes());
+//                metrics2 = new FontMetrics(font2) {
+//                };
+//                Rectangle2D bounds2 = metrics2.getStringBounds(s, null);
+//                toMessage("Bounds2: " + s + " " + bounds2.toString() + "\n");
+//            }
+//        } catch (BadLocationException ex) {
+//            Logger.getLogger(IncludedFontTester.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
 
 
@@ -130,7 +146,14 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
 
             @Override
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String str, AttributeSet attr) throws BadLocationException {
-                fb.replace(offset, length, str, attr);
+
+               
+                fb.replace(offset, length, str, style13);
+                fb.replace(offset, length, str, style12);
+
+
+
+                //fb.replace(offset, length, str, style);
 
 //                for (int i = 9; i < 16; i++) {
 //                    StyleConstants.setFontSize(style, i);
@@ -160,12 +183,12 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
 //                toMessage("Image: " + str + " " + width + "\n");
 //
 //
-                Rectangle2D bounds1 = metrics1.getStringBounds(str, null);
-                toMessage("Bounds1: " + str + " " + bounds1.toString() + "\n");
-                Rectangle2D bounds2 = metrics2.getStringBounds(str, null);
-                toMessage("Bounds2: " + str + " " + bounds2.toString() + "\n");
-                //toMessage("Font1: " + font1.getFamily() + "\n");
-                toMessage("Font2: " + font2.getFamily() + "\n");
+//                Rectangle2D bounds1 = metrics1.getStringBounds(str, null);
+//                toMessage("Bounds1: " + str + " " + bounds1.toString() + "\n");
+//                Rectangle2D bounds2 = metrics2.getStringBounds(str, null);
+//                toMessage("Bounds2: " + str + " " + bounds2.toString() + "\n");
+//                //toMessage("Font1: " + font1.getFamily() + "\n");
+//                toMessage("Font2: " + font2.getFamily() + "\n");
 
                 //System.out.println("Bounds: " + str + " " + bounds.toString());
 
