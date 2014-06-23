@@ -58,7 +58,7 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         }
 
         try {
-            font1 = font1.deriveFont(Font.PLAIN, 12);
+            //font1 = font1.deriveFont(Font.PLAIN, 24);
             fontStream.close();
         } catch (IOException ex) {
             Logger.getLogger(IncludedFontTester.class.getName()).log(Level.SEVERE, null, ex);
@@ -69,27 +69,40 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
 
 
         StyleContext context = new StyleContext();
-        StyledDocument document = jTextPane1.getStyledDocument();
-        Style style = context.getStyle(StyleContext.DEFAULT_STYLE);
+        final StyledDocument document = jTextPane1.getStyledDocument();
+        final Style style = context.getStyle(StyleContext.DEFAULT_STYLE);
         StyleConstants.setLineSpacing(style, 1.5f);
         StyleConstants.setFontFamily(style, font1.getFamily());
-        StyleConstants.setFontSize(style, 12);
+        StyleConstants.setFontSize(style, 24);
         int len = document.getLength();
         document.setParagraphAttributes(0, len, style, false);
 
-        // get the font
-        font2 = document.getFont(jTextPane1.getParagraphAttributes());
-        AttributedString attributedString = new AttributedString("m");
-        attributedString.addAttribute(TextAttribute.FONT, font2, 0, "m".length());
-        FontRenderContext fontRenderContext = new FontRenderContext(null, false, false);
-        TextLayout layout = new TextLayout(attributedString.getIterator(), fontRenderContext);
-        Shape shape = layout.getOutline(null);
-        toMessage("m " + shape.getBounds().toString() + "\n");
+//        // get the font
+//        font2 = document.getFont(jTextPane1.getParagraphAttributes());
+//        AttributedString attributedString = new AttributedString("m");
+//        attributedString.addAttribute(TextAttribute.FONT, font2, 0, "m".length());
+//        FontRenderContext fontRenderContext = new FontRenderContext(null, false, false);
+//        TextLayout layout = new TextLayout(attributedString.getIterator(), fontRenderContext);
+//        Shape shape = layout.getOutline(null);
+//        toMessage("m " + shape.getBounds().toString() + "\n");
 
-        metrics1 = new FontMetrics(font1) {
-        };
-        metrics2 = new FontMetrics(font2) {
-        };
+//        metrics1 = new FontMetrics(font1) {
+//        };
+//        metrics2 = new FontMetrics(font2) {
+//        };
+
+        for (int i = 9; i < 16; i++) {
+            StyleConstants.setFontSize(style, i);
+            len = document.getLength();
+            document.setParagraphAttributes(0, len, style, false);
+            font2 = document.getFont(jTextPane1.getParagraphAttributes());
+            AttributedString attributedString = new AttributedString("m");
+            attributedString.addAttribute(TextAttribute.FONT, font2, 0, "m".length());
+            FontRenderContext fontRenderContext = new FontRenderContext(null, false, false);
+            TextLayout layout = new TextLayout(attributedString.getIterator(), fontRenderContext);
+            Shape shape = layout.getOutline(null);
+            toMessage(i + " m " + shape.getBounds().toString() + "\n");
+        }
 
         DocumentFilter docF = new DocumentFilter() {
             @Override
@@ -106,26 +119,40 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String str, AttributeSet attr) throws BadLocationException {
                 fb.replace(offset, length, str, attr);
 
+                for (int i = 9; i < 16; i++) {
+                    StyleConstants.setFontSize(style, i);
+                    int myLen = document.getLength();
+                    document.setParagraphAttributes(0, myLen, style, false);
+                    font2 = document.getFont(jTextPane1.getParagraphAttributes());
+                    AttributedString attributedString = new AttributedString(str);
+                    attributedString.addAttribute(TextAttribute.FONT, font2, 0, str.length());
+                    FontRenderContext fontRenderContext = new FontRenderContext(null, false, false);
+                    TextLayout layout = new TextLayout(attributedString.getIterator(), fontRenderContext);
+                    Shape shape = layout.getOutline(null);
+                    toMessage(i + " " + str + " " + shape.getBounds().toString() + "\n");
+                }
 
-                AttributedString attributedString = new AttributedString(str);
-                attributedString.addAttribute(TextAttribute.FONT, font2, 0, str.length());
-                FontRenderContext fontRenderContext = new FontRenderContext(null, false, false);
-                TextLayout layout = new TextLayout(attributedString.getIterator(), fontRenderContext);
-                Shape shape = layout.getOutline(null);
-                toMessage("Shape: " + str + " " + shape.getBounds().toString() + "\n");
-
-                BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-                FontMetrics fm = img.getGraphics().getFontMetrics(font2);
-                int width = fm.stringWidth(str);
-                toMessage("Image: " + str + " " + width + "\n");
 
 
-                Rectangle2D bounds1 = metrics1.getStringBounds(str, null);
-                toMessage("Bounds1: " + str + " " + bounds1.toString() + "\n");
-                Rectangle2D bounds2 = metrics2.getStringBounds(str, null);
-                toMessage("Bounds2: " + str + " " + bounds2.toString() + "\n");
-                //toMessage("Font1: " + font1.getFamily() + "\n");
-                toMessage("Font2: " + font2.getFamily() + "\n");
+//                AttributedString attributedString = new AttributedString(str);
+//                attributedString.addAttribute(TextAttribute.FONT, font2, 0, str.length());
+//                FontRenderContext fontRenderContext = new FontRenderContext(null, false, false);
+//                TextLayout layout = new TextLayout(attributedString.getIterator(), fontRenderContext);
+//                Shape shape = layout.getOutline(null);
+//                toMessage("Shape: " + str + " " + shape.getBounds().toString() + "\n");
+//
+//                BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
+//                FontMetrics fm = img.getGraphics().getFontMetrics(font2);
+//                int width = fm.stringWidth(str);
+//                toMessage("Image: " + str + " " + width + "\n");
+//
+//
+//                Rectangle2D bounds1 = metrics1.getStringBounds(str, null);
+//                toMessage("Bounds1: " + str + " " + bounds1.toString() + "\n");
+//                Rectangle2D bounds2 = metrics2.getStringBounds(str, null);
+//                toMessage("Bounds2: " + str + " " + bounds2.toString() + "\n");
+//                //toMessage("Font1: " + font1.getFamily() + "\n");
+//                toMessage("Font2: " + font2.getFamily() + "\n");
 
                 //System.out.println("Bounds: " + str + " " + bounds.toString());
 
