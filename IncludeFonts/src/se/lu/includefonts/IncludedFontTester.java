@@ -7,13 +7,14 @@ package se.lu.includefonts;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Shape;
 import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
 import java.awt.font.TextAttribute;
 import java.awt.font.TextLayout;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.AttributedString;
@@ -41,7 +42,7 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
     FontMetrics metrics1;
     FontMetrics metrics2;
     JTextArea jta;
-
+    
     public IncludedFontTester(JTextArea jta) {
         initComponents();
 
@@ -59,7 +60,7 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         }
 
         try {
-            //font1 = font1.deriveFont(Font.PLAIN, 24);
+            font1 = font1.deriveFont(Font.PLAIN, 12);
             fontStream.close();
         } catch (IOException ex) {
             Logger.getLogger(IncludedFontTester.class.getName()).log(Level.SEVERE, null, ex);
@@ -68,24 +69,37 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font1);
         //GlyphVector gv = font1.createGlyphVector(fontRenderContext, "m");
 
-
+        
+        
         StyleContext context = new StyleContext();
         final StyledDocument document = jTextPane1.getStyledDocument();
+        //Style style = context.getStyle(StyleContext.DEFAULT_STYLE);
+        
+        
+        
+        
+        
+
+
+        final Style style0 = context.getStyle(StyleContext.DEFAULT_STYLE);
+        StyleConstants.setLineSpacing(style0, 1.5f);
+        StyleConstants.setFontFamily(style0, font1.getFamily());
+        StyleConstants.setFontSize(style0, 12);
+        int len = document.getLength();
+        document.setParagraphAttributes(0, len, style0, false);
 
         final SimpleAttributeSet style12 = new SimpleAttributeSet();
         StyleConstants.setLineSpacing(style12, 1.5f);
         StyleConstants.setFontFamily(style12, font1.getFamily());
         StyleConstants.setFontSize(style12, 12);
-        int len = document.getLength();
-        document.setParagraphAttributes(0, len, style12, false);
-
+        
         final SimpleAttributeSet style13 = new SimpleAttributeSet();
-        StyleConstants.setLineSpacing(style13, 1.5f);
+        StyleConstants.setLineSpacing(style13, 0.1f);
         StyleConstants.setFontFamily(style13, font1.getFamily());
         StyleConstants.setFontSize(style13, 13);
 
         final SimpleAttributeSet style10 = new SimpleAttributeSet();
-        StyleConstants.setLineSpacing(style10, 1.5f);
+        StyleConstants.setLineSpacing(style10, 0.1f);
         StyleConstants.setFontFamily(style10, font1.getFamily());
         StyleConstants.setFontSize(style10, 10);
 
@@ -158,6 +172,7 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
                 } else {
                     fb.replace(offset, length, str, style12);
                 }
+//                fb.replace(offset, length, str, style12);
 
 
 
