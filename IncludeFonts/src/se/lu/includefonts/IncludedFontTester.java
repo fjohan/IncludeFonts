@@ -180,25 +180,42 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         Font fb = new Font("Arial", Font.BOLD, size);
         FontMetrics fontMetricsb = new FontMetrics(fb) {
         };
-        Font fi = new Font("Arial", Font.ITALIC, size);
-        FontMetrics fontMetricsi = new FontMetrics(fi) {
-        };
-        Font fib = new Font("Arial", Font.ITALIC | Font.BOLD, size);
-        FontMetrics fontMetricsib = new FontMetrics(fib) {
+//        Font fi = new Font("Arial", Font.ITALIC, size);
+//        FontMetrics fontMetricsi = new FontMetrics(fi) {
+//        };
+//        Font fib = new Font("Arial", Font.ITALIC | Font.BOLD, size);
+//        FontMetrics fontMetricsib = new FontMetrics(fib) {
+//        };
+        Font f10 = new Font("Arial", Font.PLAIN, 10);
+        FontMetrics fontMetrics10 = new FontMetrics(f10) {
         };
 
+//        StyledDocument sd = jTextPane1.getStyledDocument();
+//        final AttributeSet normalStyle = jTextPane1.getParagraphAttributes();
+//
+//        final SimpleAttributeSet boldStyle = new SimpleAttributeSet(normalStyle);
+//        StyleConstants.setBold(boldStyle, true);
+//
+//        final SimpleAttributeSet size10Style = new SimpleAttributeSet(normalStyle);
+//        StyleConstants.setFontSize(size10Style, 10);
+
         String s;
-        for (char i = 97; i < 123; i++) {
+        for (char i = 32; i < 256; i++) {
+            if (i > 126 && i < 160) {
+                continue;
+            }
             s = new String(new char[]{i});
             Rectangle2D bounds = fontMetrics.getStringBounds(s, null);
             Rectangle2D boundsb = fontMetricsb.getStringBounds(s, null);
-            Rectangle2D boundsi = fontMetricsi.getStringBounds(s, null);
-            Rectangle2D boundsib = fontMetricsib.getStringBounds(s, null);
+//            Rectangle2D boundsi = fontMetricsi.getStringBounds(s, null);
+//            Rectangle2D boundsib = fontMetricsib.getStringBounds(s, null);
+            Rectangle2D bounds10 = fontMetrics10.getStringBounds(s, null);
             toMessage((int) i + " " + s
                     + " " + bounds.getWidth()
                     + " " + boundsb.getWidth()
-                    + " " + boundsi.getWidth()
-                    + " " + boundsib.getWidth()
+                    //                    + " " + boundsi.getWidth()
+                    //                    + " " + boundsib.getWidth()
+                    + " " + bounds10.getWidth()
                     + "\n");
         }
 
@@ -221,6 +238,8 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
 //            toMessage(i + " m " + shape.getBounds().toString() + "\n");
 //        }
 
+
+
         DocumentFilter docF = new DocumentFilter() {
             @Override
             public void insertString(DocumentFilter.FilterBypass fb, int offset, String str, AttributeSet attr) throws BadLocationException {
@@ -234,6 +253,8 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
 
             @Override
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String str, AttributeSet attr) throws BadLocationException {
+                fb.replace(offset, length, str, attr);
+
 //                if (str.startsWith("m") || str.startsWith("s")) {
 //                    fb.replace(offset, length, str, style13);
 //                } else if (str.startsWith("v")) {
