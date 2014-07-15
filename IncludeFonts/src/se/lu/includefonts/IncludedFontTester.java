@@ -180,27 +180,12 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         Font fb = new Font("Arial", Font.BOLD, size);
         FontMetrics fontMetricsb = new FontMetrics(fb) {
         };
-//        Font fi = new Font("Arial", Font.ITALIC, size);
-//        FontMetrics fontMetricsi = new FontMetrics(fi) {
-//        };
-//        Font fib = new Font("Arial", Font.ITALIC | Font.BOLD, size);
-//        FontMetrics fontMetricsib = new FontMetrics(fib) {
-//        };
         Font f10 = new Font("Arial", Font.PLAIN, 10);
         FontMetrics fontMetrics10 = new FontMetrics(f10) {
         };
-
-//        StyledDocument sd = jTextPane1.getStyledDocument();
-//        final AttributeSet normalStyle = jTextPane1.getParagraphAttributes();
-//
-//        final SimpleAttributeSet boldStyle = new SimpleAttributeSet(normalStyle);
-//        StyleConstants.setBold(boldStyle, true);
-//
-//        final SimpleAttributeSet size10Style = new SimpleAttributeSet(normalStyle);
-//        StyleConstants.setFontSize(size10Style, 10);
-
-
-        //double[] refValues = {10.0, 11.0};
+        Font f11 = new Font("Arial", Font.PLAIN, 11);
+        FontMetrics fontMetrics11 = new FontMetrics(f11) {
+        };
         
         double[] refValues12 = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 3.0, 4.0, 7.0, 7.0, 11.0, 8.0, 2.0, 4.0, 4.0, 5.0, 7.0, 3.0, 4.0, 3.0, 3.0, 7.0, 7.0, 7.0, 7.0, 7.0, 7.0, 7.0, 7.0, 7.0, 7.0, 3.0, 3.0, 7.0, 7.0, 7.0, 7.0, 12.0, 7.0, 8.0, 9.0, 9.0, 8.0, 7.0, 9.0, 9.0, 3.0, 6.0, 8.0, 7.0, 9.0, 9.0, 9.0, 8.0, 9.0, 9.0, 8.0, 7.0, 9.0, 7.0, 11.0, 7.0, 7.0, 7.0, 3.0, 3.0, 3.0, 5.0, 7.0, 4.0, 7.0, 7.0, 6.0, 7.0, 7.0, 3.0, 7.0, 7.0, 3.0, 3.0, 6.0, 3.0, 11.0, 7.0, 7.0, 7.0, 7.0, 4.0, 7.0, 3.0, 7.0, 5.0, 9.0, 5.0, 5.0, 5.0, 4.0, 3.0, 4.0, 7.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.0, 3.0, 7.0, 7.0, 7.0, 7.0, 3.0, 7.0, 4.0, 9.0, 4.0, 7.0, 7.0, 4.0, 9.0, 7.0, 5.0, 7.0, 4.0, 4.0, 4.0, 7.0, 6.0, 3.0, 4.0, 4.0, 4.0, 7.0, 10.0, 10.0, 10.0, 7.0, 7.0, 7.0, 7.0, 7.0, 7.0, 7.0, 12.0, 9.0, 8.0, 8.0, 8.0, 8.0, 3.0, 3.0, 3.0, 3.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 7.0, 9.0, 9.0, 9.0, 9.0, 9.0, 7.0, 8.0, 8.0, 7.0, 7.0, 7.0, 7.0, 7.0, 7.0, 11.0, 6.0, 7.0, 7.0, 7.0, 7.0, 3.0, 3.0, 3.0, 3.0, 7.0, 7.0, 7.0, 7.0, 7.0, 7.0, 7.0, 7.0, 7.0, 7.0, 7.0, 7.0, 7.0, 5.0, 7.0, 5.0};
         double[] refValues17 = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 5.0, 5.0, 6.0, 9.0, 9.0, 15.0, 11.0, 3.0, 6.0, 6.0, 7.0, 10.0, 5.0, 6.0, 5.0, 5.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 5.0, 5.0, 10.0, 10.0, 10.0, 9.0, 17.0, 11.0, 11.0, 12.0, 12.0, 11.0, 10.0, 12.0, 11.0, 5.0, 9.0, 11.0, 9.0, 13.0, 11.0, 12.0, 11.0, 12.0, 11.0, 11.0, 9.0, 11.0, 11.0, 17.0, 11.0, 11.0, 9.0, 5.0, 5.0, 5.0, 7.0, 9.0, 6.0, 9.0, 9.0, 9.0, 9.0, 9.0, 5.0, 9.0, 9.0, 4.0, 3.0, 8.0, 3.0, 13.0, 9.0, 9.0, 9.0, 9.0, 6.0, 8.0, 4.0, 9.0, 7.0, 11.0, 7.0, 9.0, 8.0, 6.0, 5.0, 6.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 5.0, 5.0, 9.0, 9.0, 9.0, 9.0, 5.0, 9.0, 6.0, 13.0, 5.0, 9.0, 10.0, 6.0, 13.0, 9.0, 7.0, 9.0, 6.0, 6.0, 6.0, 9.0, 9.0, 5.0, 6.0, 6.0, 5.0, 9.0, 14.0, 14.0, 14.0, 10.0, 11.0, 11.0, 11.0, 11.0, 11.0, 11.0, 17.0, 12.0, 11.0, 11.0, 11.0, 11.0, 5.0, 5.0, 5.0, 5.0, 12.0, 11.0, 12.0, 12.0, 12.0, 12.0, 12.0, 10.0, 13.0, 11.0, 11.0, 11.0, 11.0, 11.0, 11.0, 10.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 15.0, 9.0, 9.0, 9.0, 9.0, 9.0, 5.0, 5.0, 5.0, 5.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0, 9.0};
@@ -218,15 +203,13 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
             s = new String(new char[]{i});
             Rectangle2D bounds = fontMetrics.getStringBounds(s, null);
             Rectangle2D boundsb = fontMetricsb.getStringBounds(s, null);
-//            Rectangle2D boundsi = fontMetricsi.getStringBounds(s, null);
-//            Rectangle2D boundsib = fontMetricsib.getStringBounds(s, null);
             Rectangle2D bounds10 = fontMetrics10.getStringBounds(s, null);
-            //System.out.print(bounds.getWidth()+", ");
-            String result12 = "--FAIL--";
+            Rectangle2D bounds11 = fontMetrics11.getStringBounds(s, null);
+            String result12 = "------FAIL------";
             if (boundsb.getWidth() == refValues12[i]) {result12 = "BOLD";}
             if (bounds10.getWidth() == refValues12[i]) {result12 = "P--10";}
+            if (bounds11.getWidth() == refValues12[i]) {result12 = "P--11";}
             if (bounds.getWidth() == refValues12[i]) {result12 = "PLAIN";}
-
 
             toMessage((int) i + " " + s
                     + " " + bounds.getWidth()
