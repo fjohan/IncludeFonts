@@ -4,15 +4,12 @@
  */
 package se.lu.includefonts;
 
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.Graphics;
+import java.awt.font.LineMetrics;
 import java.awt.geom.Rectangle2D;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
@@ -68,72 +65,17 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         int size = 12;
         final SimpleAttributeSet style = new SimpleAttributeSet();
         StyleConstants.setLineSpacing(style, 1.5f);
-        StyleConstants.setFontFamily(style, "Arial");
+        StyleConstants.setFontFamily(style, "Monospaced");
         StyleConstants.setFontSize(style, size);
         int len = document.getLength();
         document.setParagraphAttributes(0, len, style, false);
 
-        final SimpleAttributeSet styleBold = new SimpleAttributeSet();
-        StyleConstants.setLineSpacing(styleBold, 1.5f);
-        StyleConstants.setFontFamily(styleBold, "Arial");
-        StyleConstants.setFontSize(styleBold, size);
-        StyleConstants.setBold(styleBold, true);
-
-        final SimpleAttributeSet styleItalic = new SimpleAttributeSet();
-        StyleConstants.setLineSpacing(styleItalic, 1.5f);
-        StyleConstants.setFontFamily(styleItalic, "Arial");
-        StyleConstants.setFontSize(styleItalic, size);
-        StyleConstants.setItalic(styleItalic, true);
-
-//        class DynamicIcon implements Icon {
-//
-//            @Override
-//            public int getIconWidth() {
-//                return 5;
-//            }
-//
-//            @Override
-//            public int getIconHeight() {
-//                return 12;
-//            }
-//
-//            @Override
-//            public void paintIcon(Component c, Graphics g, int x, int y) {
-//                System.out.println(x + ", " + y);
-//                g.fill3DRect(x, y, getIconWidth(), getIconHeight(), true);
-//                g.drawString("m", x, y);
-//            }
-//        };
-//        
-//        Icon icon = new DynamicIcon();
-
-
-
-        final SimpleAttributeSet styleIB = new SimpleAttributeSet();
-        StyleConstants.setLineSpacing(styleIB, 1.5f);
-        StyleConstants.setFontFamily(styleIB, "Arial");
-        StyleConstants.setFontSize(styleIB, size);
-        //StyleConstants.setSubscript(styleIB, true);
-        StyleConstants.setBold(styleIB, true);
-        StyleConstants.setItalic(styleIB, true);
-//        StyleConstants.setIcon(styleIB, icon);
-
-
-
-
-
-
         try {
-            document.insertString(0, "abcdefghijklmnopqrstuvwxyzåäö\n", style);
+            document.insertString(0, "aaaaa\n", style);
             len = document.getLength();
-            document.insertString(len, "abcdefghijklmnopqrstuvwxyzåäö\n", style);
-            document.setCharacterAttributes(len + 10, 10, styleBold, true);
+            document.insertString(len, "IIIII\n", style);
             len = document.getLength();
-            document.insertString(len, "abcdefghijklmnopqrstuvwxyzåäö\n", style);
-            document.setCharacterAttributes(len + 10, 10, styleItalic, false);
-            len = document.getLength();
-            document.insertString(len, "abcdefghijklmnopqrstuvwxyzåäö\n", style);
-            document.setCharacterAttributes(len + 10, 10, styleIB, false);
+            document.insertString(len, "MMMMM\n", style);
         } catch (BadLocationException ex) {
             Logger.getLogger(IncludedFontTester.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -174,6 +116,8 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
 //            Logger.getLogger(IncludedFontTester.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 
+        System.out.println(System.getProperty("os.name"));
+        
         Font f = new Font("Arial", Font.PLAIN, size);
         FontMetrics fontMetrics = new FontMetrics(f) {
         };
@@ -202,6 +146,7 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
             }
             s = new String(new char[]{i});
             Rectangle2D bounds = fontMetrics.getStringBounds(s, null);
+            LineMetrics lm = fontMetrics.getLineMetrics(s, null);
             Rectangle2D boundsb = fontMetricsb.getStringBounds(s, null);
             Rectangle2D bounds10 = fontMetrics10.getStringBounds(s, null);
             Rectangle2D bounds11 = fontMetrics11.getStringBounds(s, null);
@@ -213,6 +158,8 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
 
             toMessage((int) i + " " + s
                     + " " + bounds.getWidth()
+                    + " " + lm.getLeading()
+                    + " " + lm.getHeight()
                     + " " + boundsb.getWidth()
                     //                    + " " + boundsi.getWidth()
                     //                    + " " + boundsib.getWidth()
