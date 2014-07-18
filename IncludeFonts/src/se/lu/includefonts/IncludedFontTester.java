@@ -62,7 +62,7 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         final StyledDocument document = jTextPane1.getStyledDocument();
         //Style style = context.getStyle(StyleContext.DEFAULT_STYLE);
 
-        int size = 12;
+        int size = 100;
         
         final SimpleAttributeSet style = new SimpleAttributeSet();
         StyleConstants.setLineSpacing(style, 1.5f);
@@ -72,11 +72,11 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         document.setParagraphAttributes(0, len, style, false);
 
         try {
-            document.insertString(0, "aaaaa\n", style);
+            document.insertString(0, "IIIII\n", style);
             len = document.getLength();
             document.insertString(len, "IIIII\n", style);
             len = document.getLength();
-            document.insertString(len, "MMMMM\n", style);
+            document.insertString(len, "IIIII\n", style);
         } catch (BadLocationException ex) {
             Logger.getLogger(IncludedFontTester.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -299,6 +299,7 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
 
+        setMaximizable(true);
         setTitle("IncludedFontTester");
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -318,7 +319,7 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
