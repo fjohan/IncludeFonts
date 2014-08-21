@@ -14,6 +14,7 @@ import javax.swing.JLayeredPane;
 public class ScriptLogBase extends javax.swing.JFrame {
 
         MessagePane mp;
+        PaintTextFrame ptf;
     /**
      * Creates new form ScriptLogBase
      */
@@ -23,6 +24,7 @@ public class ScriptLogBase extends javax.swing.JFrame {
         
         openMessagePane();
         openIncludedFontTesterFrame();
+        openPaintTextFrame();
         
         
     }
@@ -235,5 +237,13 @@ public class ScriptLogBase extends javax.swing.JFrame {
         mp.setLocation(400, 0);
         mp.setBounds(400, 0, 600, 400);
         mp.setVisible(true);
+    }
+
+    private void openPaintTextFrame() {
+        ptf = new PaintTextFrame();
+        desktopPane.add(ptf, JLayeredPane.DEFAULT_LAYER);
+        //ptf.setLocation(600, 0);
+        ptf.setBounds(600, 0, 600, 400);
+        ptf.setVisible(true);
     }
 }

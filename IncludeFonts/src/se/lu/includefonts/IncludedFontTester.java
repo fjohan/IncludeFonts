@@ -66,7 +66,7 @@ public class IncludedFontTester extends javax.swing.JInternalFrame {
         
         final SimpleAttributeSet style = new SimpleAttributeSet();
         StyleConstants.setLineSpacing(style, 1.5f);
-        StyleConstants.setFontFamily(style, "Monospaced");
+        StyleConstants.setFontFamily(style, "Arial");
         StyleConstants.setFontSize(style, size);
         int len = document.getLength();
         document.setParagraphAttributes(0, len, style, false);
