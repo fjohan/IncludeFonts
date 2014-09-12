@@ -4,8 +4,15 @@
  */
 package se.lu.includefonts;
 
-import javax.swing.JFrame;
+import java.awt.AWTEvent;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.Toolkit;
 import javax.swing.JLayeredPane;
+import javax.swing.SwingWorker;
+import se.lu.scriptlog.ScriptLogFrame2014;
+import se.lu.scriptlog.util.ui.DesktopLocator;
+import se.lu.scriptlog.util.RepeatingReleasedEventsFixer;
 
 /**
  *
@@ -13,20 +20,28 @@ import javax.swing.JLayeredPane;
  */
 public class ScriptLogBase extends javax.swing.JFrame {
 
-        MessagePane mp;
-        PaintTextFrame ptf;
+    MessagePane mp;
+    PaintTextFrame ptf;
+    DesktopLocator desktopLocator;
+    boolean initialResize = true;
+
     /**
      * Creates new form ScriptLogBase
      */
     public ScriptLogBase() {
         initComponents();
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
+
         openMessagePane();
-        openIncludedFontTesterFrame();
-        openPaintTextFrame();
         
         
+        
+        
+    
+        //openScriptLogFrame2014();
+        //openIncludedFontTesterFrame();
+        //openPaintTextFrame();
+
+
     }
 
     /**
@@ -53,6 +68,7 @@ public class ScriptLogBase extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
@@ -126,6 +142,14 @@ public class ScriptLogBase extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
+        jMenuItem3.setText("ScriptLog2014");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
         menuBar.add(jMenu1);
 
         helpMenu.setMnemonic('h');
@@ -147,11 +171,11 @@ public class ScriptLogBase extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
         );
 
         pack();
@@ -169,10 +193,15 @@ public class ScriptLogBase extends javax.swing.JFrame {
         openMessagePane();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        openScriptLogFrame2014();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        Toolkit.getDefaultToolkit().addAWTEventListener(new RepeatingReleasedEventsFixer(), AWTEvent.KEY_EVENT_MASK);
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -218,6 +247,7 @@ public class ScriptLogBase extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;
@@ -234,8 +264,8 @@ public class ScriptLogBase extends javax.swing.JFrame {
     private void openMessagePane() {
         mp = new MessagePane();
         desktopPane.add(mp, JLayeredPane.DEFAULT_LAYER);
-        mp.setLocation(400, 0);
-        mp.setBounds(400, 0, 600, 400);
+        mp.setLocation(0, 0);
+        mp.setBounds(0, 0, 600, 400);
         mp.setVisible(true);
     }
 
@@ -245,5 +275,15 @@ public class ScriptLogBase extends javax.swing.JFrame {
         //ptf.setLocation(600, 0);
         ptf.setBounds(600, 0, 600, 400);
         ptf.setVisible(true);
+    }
+
+    private void openScriptLogFrame2014() {
+        desktopLocator = new DesktopLocator();
+        final ScriptLogFrame2014 slf2014 = new ScriptLogFrame2014(mp.getjTextArea1());
+        //slf2014 = new ScriptLogFrame2014(mp.getjTextArea1());
+        desktopPane.add(slf2014, JLayeredPane.DEFAULT_LAYER);
+        desktopLocator.maxHpercW(slf2014, 0.6);
+        desktopLocator.centerOnDesktop(slf2014);
+        slf2014.setVisible(true);
     }
 }
