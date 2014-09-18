@@ -15,16 +15,21 @@ import javax.swing.text.DocumentFilter;
  *
  * @author johanf
  */
-public class DocumentLogger implements Logger {
+public class DocumentLogger implements ScriptLogLogger {
 
     public DocumentLogger(JTextPane jtp, final JTextArea jta) {
         DocumentFilter docF = new DocumentFilter() {
+            
+            String tmpString;
             
             @Override
             public void insertString(DocumentFilter.FilterBypass fb, int offset, String str, AttributeSet attr) throws BadLocationException {
                 long now = getCurrentTime();
                 //recordRecordable(new InsertStringRecordable(101, now, offset, str));
-                jta.append(now + ": insertString\n");
+                tmpString = String.join(" ", "<insertString>", now + "", offset + "", str);
+                System.out.println(tmpString);
+                //jta.append(String.join(" ", "<insertString>", now + "", offset + "", str) + "\n");
+                //toFile(null, String.join(" ", "<insertString>", now + "", offset + "", str));
                 fb.insertString(offset, str, attr);
                 //super.insertString(fb, offset, str, attr);
             }
@@ -33,7 +38,9 @@ public class DocumentLogger implements Logger {
             public void remove(DocumentFilter.FilterBypass fb, int offset, int length) throws BadLocationException {
                 long now = getCurrentTime();
                 //recordRecordable(new RemoveRecordable(102, now, offset, length));
-                jta.append(now + ": remove\n");
+                tmpString = String.join(" ", "<remove>", now + "", offset + "", length + "");
+                System.out.println(tmpString);
+                //jta.append(String.join(" ", "<remove>", now + "", offset + "", length + "") + "\n");
                 fb.remove(offset, length);
                 //super.remove(fb, offset, length);
             }
@@ -41,7 +48,9 @@ public class DocumentLogger implements Logger {
             @Override
             public void replace(DocumentFilter.FilterBypass fb, int offset, int length, String str, AttributeSet attr) throws BadLocationException {
                 long now = getCurrentTime();
-                jta.append(now + ": replace\n");
+                tmpString = String.join(" ", "<replace>", now + "", offset + "", length + "", str);
+                System.out.println(tmpString);
+                //jta.append(String.join(" ", "<replace>", now + "", offset + "", length + "", str) + "\n");
 //                if ("bcdfghjklmnpqrstvwxzaeiouyåäö".contains(str)) {
 //                    //if ("aeiouyåäö".matches(".*"+str+".*")) {
 //                    str = "x";

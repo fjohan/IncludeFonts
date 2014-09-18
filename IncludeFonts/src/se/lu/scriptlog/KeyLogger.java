@@ -15,20 +15,25 @@ import javax.swing.JTextPane;
  *
  * @author johanf
  */
-public class KeyLogger implements Logger {
+public class KeyLogger implements ScriptLogLogger {
 
     public KeyLogger(JTextPane jtp, final JTextArea jta) {
 
         final TreeSet keyCodeSet = new TreeSet();
-
-        KeyListener keyL = new KeyAdapter() {
+        KeyListener keyL;
+        keyL = new KeyAdapter() {
+            
+            String tmpString;
             
             @Override
             public void keyPressed(KeyEvent evt) {
                 long now = getCurrentTime();
                 if (keyCodeSet.add(evt.getKeyCode())) {
                     int keyCode = evt.getKeyCode();
-                    jta.append(now + ": keyPressed\n");
+                    tmpString = String.join(" ", "<keyPressed>", now + "", keyCode + "");
+                    //jta.append(String.join(" ", "<keyPressed>", now + "", keyCode + "") + "\n");
+                    System.out.println(tmpString);
+                    //toFile(null, "<keyPressed> " + now + " " + keyCode + "\n");
                     //recordRecordable(new KeyPressedRecordable(207, now, keyCode));
                 }
             }
@@ -38,7 +43,10 @@ public class KeyLogger implements Logger {
                 long now = getCurrentTime();
                 if (keyCodeSet.remove(evt.getKeyCode())) {
                     int keyCode = evt.getKeyCode();
-                    jta.append(now + ": keyReleased\n");
+                    tmpString = String.join(" ", "<keyReleased>", now + "", keyCode + "");
+                    System.out.println(tmpString);
+                    
+                    //toFile(null, "<keyReleased> " + now + " " + keyCode + "\n");
                     //recordRecordable(new KeyReleasedRecordable(208, now, keyCode));
                 }
             }
